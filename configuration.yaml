@@ -55,9 +55,16 @@ logbook:
 # Track the sun
 sun:
 
-# Weather Prediction
 sensor:
-  platform: yr
+  # Weather Prediction (YR)
+  - platform: yr
+
+  # Weather Prediction (OpenWeatherMap)
+  - platform: openweathermap
+    api_key: !secret home_openweathermap_key
+    monitored_conditions: 
+      - weather
+      - temperature
 
 # Text to speech
 tts:
@@ -66,7 +73,10 @@ tts:
 # # My customizations
 # Emulate Hue
 emulated_hue:
+
 # MQTT Broker
+mqtt:
+
 # Floorplan
 binary_sensor:
   - platform: mqtt
