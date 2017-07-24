@@ -66,6 +66,32 @@ sensor:
       - weather
       - temperature
 
+  # OctoPrint Sensor
+  - platform: octoprint
+    name: OctoPrint
+    monitored_conditions:
+      - Current State
+      - Temperatures
+      - Job Percentage
+
+binary_sensor:
+  # Floorplan
+  - platform: mqtt
+    state_topic: dummy/floorplan/sensor
+    name: Floorplan
+
+  # OctoPrint Binary Sensor
+  - platform: octoprint
+    monitored_conditions:
+      - Printing
+      - Printing Error
+
+media_player:
+  # Spotify
+  - platform: spotify
+    client_id: !secret home_spotify_id
+    client_secret: !secret home_spotify_secret
+
 # Text to speech
 tts:
   platform: google
@@ -78,16 +104,17 @@ emulated_hue:
 mqtt:
 
 # Floorplan
-binary_sensor:
-  - platform: mqtt
-    state_topic: dummy/floorplan/sensor
-    name: Floorplan
 panel_custom:
   - name: floorplan
     sidebar_title: Floorplan
     sidebar_icon: mdi:security-home
     url_path: floorplan
     config: !include floorplan.yaml
+
+# Octoprint
+octoprint:
+  host: !secret home_octoprint_host
+  api_key: !secret home_octoprint_api_key
 
 group: !include groups.yaml
 automation: !include automations.yaml
