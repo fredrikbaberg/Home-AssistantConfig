@@ -58,6 +58,9 @@ sun:
 sensor:
   # Weather Prediction (YR)
   - platform: yr
+    monitored_conditions:
+      - temperature
+      - precipitation
 
   # Weather Prediction (OpenWeatherMap)
   - platform: openweathermap
@@ -73,6 +76,12 @@ sensor:
       - Current State
       - Temperatures
       - Job Percentage
+
+  # Steam account
+  - platform: steam_online
+    api_key: !secret home_steam_api_key
+    accounts:
+      - !secret home_steam_account_id
 
 binary_sensor:
   # Floorplan
@@ -91,6 +100,9 @@ media_player:
   - platform: spotify
     client_id: !secret home_spotify_id
     client_secret: !secret home_spotify_secret
+
+  # Google Cast
+  - platform: cast
 
 # Text to speech
 tts:
@@ -115,6 +127,16 @@ panel_custom:
 octoprint:
   host: !secret home_octoprint_host
   api_key: !secret home_octoprint_api_key
+
+# Notifications
+notify:
+  # Android TV notification
+  - platform: nfandroidtv
+    name: livingroom
+    host: !secret home_tv_host
+
+ifttt:
+  key: !secret home_ifttt_key
 
 group: !include groups.yaml
 automation: !include automations.yaml
